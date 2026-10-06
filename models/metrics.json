@@ -1,0 +1,350 @@
+{
+  "pompa": {
+    "nutrisi": {
+      "n_data": 116,
+      "n_train": 81,
+      "n_val": 17,
+      "n_test": 18,
+      "model_terbaik": "Random Forest",
+      "hasil": {
+        "Linear Regression": {
+          "val": {
+            "MAE": 1.741,
+            "RMSE": 2.014,
+            "MAPE": 7.74,
+            "R2": 0.9567
+          },
+          "test": {
+            "MAE": 0.959,
+            "RMSE": 1.153,
+            "MAPE": 3.95,
+            "R2": 0.9858
+          },
+          "param": {}
+        },
+        "Random Forest": {
+          "val": {
+            "MAE": 1.486,
+            "RMSE": 1.731,
+            "MAPE": 6.46,
+            "R2": 0.968
+          },
+          "test": {
+            "MAE": 0.736,
+            "RMSE": 0.933,
+            "MAPE": 3.49,
+            "R2": 0.9907
+          },
+          "param": {
+            "max_depth": null,
+            "min_samples_leaf": 1,
+            "n_estimators": 400
+          },
+          "test_setelah_latih_ulang": {
+            "MAE": 0.891,
+            "RMSE": 1.173,
+            "MAPE": 4.17,
+            "R2": 0.9853
+          }
+        },
+        "Gradient Boosting": {
+          "val": {
+            "MAE": 1.573,
+            "RMSE": 1.994,
+            "MAPE": 6.37,
+            "R2": 0.9576
+          },
+          "test": {
+            "MAE": 0.945,
+            "RMSE": 1.195,
+            "MAPE": 4.39,
+            "R2": 0.9848
+          },
+          "param": {
+            "learning_rate": 0.05,
+            "max_depth": 2,
+            "n_estimators": 150
+          }
+        }
+      },
+      "pentingnya_fitur": {
+        "selisih_x_volume": 9.799,
+        "suhu_udara": 0.287,
+        "jam": 0.064,
+        "nilai_target": 0.051,
+        "suhu_air": 0.025,
+        "selisih": 0.009,
+        "intensitas_cahaya": -0.002,
+        "volume_air_l": -0.003,
+        "nilai_awal": -0.034,
+        "ketinggian_air": -0.063
+      },
+      "sampel_uji": [
+        {
+          "aktual": 37.1,
+          "prediksi": 35.3
+        },
+        {
+          "aktual": 37.8,
+          "prediksi": 38.1
+        },
+        {
+          "aktual": 21.2,
+          "prediksi": 20.6
+        },
+        {
+          "aktual": 26.1,
+          "prediksi": 26.3
+        },
+        {
+          "aktual": 37.3,
+          "prediksi": 38.3
+        },
+        {
+          "aktual": 11.3,
+          "prediksi": 12.2
+        },
+        {
+          "aktual": 30.4,
+          "prediksi": 29.7
+        },
+        {
+          "aktual": 30.1,
+          "prediksi": 26.8
+        },
+        {
+          "aktual": 14.1,
+          "prediksi": 13.7
+        },
+        {
+          "aktual": 9.4,
+          "prediksi": 10.9
+        },
+        {
+          "aktual": 31.5,
+          "prediksi": 31.7
+        },
+        {
+          "aktual": 32.6,
+          "prediksi": 31.8
+        },
+        {
+          "aktual": 26.1,
+          "prediksi": 26.7
+        },
+        {
+          "aktual": 12.7,
+          "prediksi": 12.2
+        },
+        {
+          "aktual": 20.2,
+          "prediksi": 19.8
+        },
+        {
+          "aktual": 11.6,
+          "prediksi": 12.1
+        },
+        {
+          "aktual": 26.9,
+          "prediksi": 24.9
+        },
+        {
+          "aktual": 37.1,
+          "prediksi": 36.4
+        }
+      ],
+      "durasi_rata2": 24.12
+    },
+    "asam": {
+      "n_data": 133,
+      "n_train": 93,
+      "n_val": 20,
+      "n_test": 20,
+      "model_terbaik": "Gradient Boosting",
+      "hasil": {
+        "Linear Regression": {
+          "val": {
+            "MAE": 0.669,
+            "RMSE": 0.899,
+            "MAPE": 8.46,
+            "R2": 0.9139
+          },
+          "test": {
+            "MAE": 0.423,
+            "RMSE": 0.534,
+            "MAPE": 6.71,
+            "R2": 0.9133
+          },
+          "param": {}
+        },
+        "Random Forest": {
+          "val": {
+            "MAE": 0.66,
+            "RMSE": 0.915,
+            "MAPE": 8.13,
+            "R2": 0.9107
+          },
+          "test": {
+            "MAE": 0.448,
+            "RMSE": 0.586,
+            "MAPE": 6.55,
+            "R2": 0.8959
+          },
+          "param": {
+            "max_depth": null,
+            "min_samples_leaf": 1,
+            "n_estimators": 400
+          }
+        },
+        "Gradient Boosting": {
+          "val": {
+            "MAE": 0.655,
+            "RMSE": 0.908,
+            "MAPE": 8.3,
+            "R2": 0.9121
+          },
+          "test": {
+            "MAE": 0.379,
+            "RMSE": 0.522,
+            "MAPE": 5.39,
+            "R2": 0.9174
+          },
+          "param": {
+            "learning_rate": 0.05,
+            "max_depth": 2,
+            "n_estimators": 150
+          },
+          "test_setelah_latih_ulang": {
+            "MAE": 0.39,
+            "RMSE": 0.481,
+            "MAPE": 5.88,
+            "R2": 0.9297
+          }
+        }
+      },
+      "pentingnya_fitur": {
+        "selisih_x_volume": 1.302,
+        "suhu_udara": 0.025,
+        "ketinggian_air": 0.005,
+        "nilai_awal": 0.004,
+        "suhu_air": 0.004,
+        "volume_air_l": 0.001,
+        "nilai_target": -0.009,
+        "intensitas_cahaya": -0.011,
+        "jam": -0.013,
+        "selisih": -0.038
+      },
+      "sampel_uji": [
+        {
+          "aktual": 4.8,
+          "prediksi": 4.3
+        },
+        {
+          "aktual": 7.4,
+          "prediksi": 6.9
+        },
+        {
+          "aktual": 6.5,
+          "prediksi": 6.8
+        },
+        {
+          "aktual": 6.4,
+          "prediksi": 6.6
+        },
+        {
+          "aktual": 6.0,
+          "prediksi": 6.2
+        },
+        {
+          "aktual": 5.0,
+          "prediksi": 5.3
+        },
+        {
+          "aktual": 7.5,
+          "prediksi": 7.4
+        },
+        {
+          "aktual": 6.8,
+          "prediksi": 6.7
+        },
+        {
+          "aktual": 9.4,
+          "prediksi": 9.7
+        },
+        {
+          "aktual": 7.5,
+          "prediksi": 7.8
+        },
+        {
+          "aktual": 5.1,
+          "prediksi": 5.0
+        },
+        {
+          "aktual": 4.6,
+          "prediksi": 4.2
+        },
+        {
+          "aktual": 7.0,
+          "prediksi": 7.4
+        },
+        {
+          "aktual": 8.0,
+          "prediksi": 8.4
+        },
+        {
+          "aktual": 7.8,
+          "prediksi": 8.3
+        },
+        {
+          "aktual": 12.1,
+          "prediksi": 11.3
+        },
+        {
+          "aktual": 8.2,
+          "prediksi": 8.6
+        },
+        {
+          "aktual": 5.4,
+          "prediksi": 4.9
+        },
+        {
+          "aktual": 6.4,
+          "prediksi": 7.8
+        },
+        {
+          "aktual": 4.1,
+          "prediksi": 4.4
+        }
+      ],
+      "durasi_rata2": 6.87
+    }
+  },
+  "anomali": {
+    "n_train": 18135,
+    "n_test": 7773,
+    "anomali_di_uji": 136,
+    "kontaminasi": 0.02,
+    "model_terbaik": "Isolation Forest",
+    "hasil": {
+      "Isolation Forest": {
+        "precision": 0.5212,
+        "recall": 0.6324,
+        "f1": 0.5714,
+        "TP": 86,
+        "FP": 79,
+        "FN": 50,
+        "TN": 7558
+      },
+      "One-Class SVM": {
+        "precision": 0.2528,
+        "recall": 0.6544,
+        "f1": 0.3648,
+        "TP": 89,
+        "FP": 263,
+        "FN": 47,
+        "TN": 7374
+      }
+    }
+  },
+  "catatan": "Dilatih pada DATA SIMULASI. Ganti dengan data asli lalu jalankan ulang train.py."
+}

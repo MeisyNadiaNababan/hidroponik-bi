@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HydroBI - Dashboard Monitoring Hidroponik</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+</head>
+<body>
+<header class="top">
+  <div class="brand">HydroBI <span>Business Intelligence &amp; Machine Learning untuk Hidroponik IoT</span></div>
+  <nav id="tabs">
+    <button data-tab="monitor" class="on">Monitoring</button>
+    <button data-tab="tren">Analisis Tren</button>
+    <button data-tab="aktuator">Pompa &amp; Efisiensi</button>
+    <button data-tab="anomali">Alert &amp; Anomali</button>
+    <button data-tab="ml">Prediksi Pompa (ML)</button>
+  </nav>
+</header>
+
+<section class="filter">
+  <label>Bak
+    <select id="f-device"></select>
+  </label>
+  <label>Rentang waktu
+    <select id="f-preset">
+      <option value="6h">6 jam terakhir</option>
+      <option value="24h">24 jam terakhir</option>
+      <option value="7d" selected>7 hari terakhir</option>
+      <option value="14d">14 hari terakhir</option>
+      <option value="all">Semua data</option>
+      <option value="custom">Kustom…</option>
+    </select>
+  </label>
+  <label>Dari <input type="datetime-local" id="f-start"></label>
+  <label>Sampai <input type="datetime-local" id="f-end"></label>
+  <details class="ambang">
+    <summary>Ambang optimal</summary>
+    <div>
+      pH <input id="ph_min" type="number" step="0.1" value="5.5"> – <input id="ph_max" type="number" step="0.1" value="6.5">
+      TDS <input id="tds_min" type="number" step="10" value="550"> – <input id="tds_max" type="number" step="10" value="800"> ppm
+    </div>
+  </details>
+  <button id="f-apply" class="primary">Terapkan</button>
+  <span id="f-info" class="muted"></span>
+</section>
+
+<main>
+  <!-- 1. MONITORING -->
+  <div class="tab on" id="tab-monitor">
+    <h2>Kondisi Terkini <small id="m-waktu"></small></h2>
+    <div class="cards" id="m-cards"></div>
+    <h2>KPI pada Rentang Terpilih</h2>
+    <div class="cards" id="m-kpi"></div>
+    <p class="note" id="m-note"></p>
+  </div>
+
+  <!-- 2. TREN -->
+  <div class="tab" id="tab-tren">
+    <div class="panel">
+      <b>Parameter yang ditampilkan:</b>
+      <span id="t-params"></span>
+      <span class="muted" id="t-agg"></span>
+    </div>
+    <div id="t-charts" class="grid2"></div>
+    <div class="panel"><h3>Statistik Deskriptif</h3><table id="t-stat"></table></div>
+  </div>
+
+  <!-- 3. AKTUATOR -->
+  <div class="tab" id="tab-aktuator">
+    <div class="grid2">
+      <div class="panel"><h3>Total Durasi Pompa per Hari (detik)</h3><canvas id="a-chart"></canvas></div>
+      <div class="panel"><h3>Log Aktuator Terbaru</h3><table id="a-log"></table></div>
+    </div>
+  </div>
+
+  <!-- 4. ANOMALI -->
+  <div class="tab" id="tab-anomali">
+    <div class="cards" id="n-cards"></div>
+    <div class="grid2">
+      <div class="panel"><h3>Anomali per Hari (Isolation Forest)</h3><canvas id="n-chart"></canvas></div>
+      <div class="panel"><h3>Jenis Anomali</h3><canvas id="n-reason"></canvas></div>
+    </div>
+    <div class="panel"><h3>Anomali dengan Skor Tertinggi</h3><table id="n-table"></table></div>
+    <div class="panel"><h3>Riwayat Alert (di luar rentang optimal)</h3><table id="n-alert"></table></div>
+  </div>
+
+  <!-- 5. ML -->
+  <div class="tab" id="tab-ml">
+    <h2>Rekomendasi Pompa Saat Ini</h2>
+    <div class="cards" id="ml-rek"></div>
+
+    <div class="grid2">
+      <div class="panel">
+        <h3>Simulasi: Berapa Lama Pompa Harus Menyala?</h3>
+        <form id="ml-form" onsubmit="return false">
+          <label>Jenis pompa
+            <select id="p-jenis"><option value="nutrisi">Pompa nutrisi (naikkan TDS)</option><option value="asam">Pompa asam (turunkan pH)</option></select>
+          </label>
+          <div class="fgrid">
+            <label>Nilai awal <input id="p-awal" type="number" step="any"></label>
+            <label>Nilai target <input id="p-target" type="number" step="any"></label>
+            <label>Volume air (L) <input id="p-vol" type="number" step="any"></label>
+            <label>Suhu air (°C) <input id="p-sa" type="number" step="any"></label>
+            <label>Suhu udara (°C) <input id="p-su" type="number" step="any"></label>
+            <label>Cahaya (Lux) <input id="p-lux" type="number" step="any"></label>
+            <label>Tinggi air (cm) <input id="p-tinggi" type="number" step="any"></label>
+            <label>Jam (0–23) <input id="p-jam" type="number" min="0" max="23"></label>
+          </div>
+          <button class="primary" id="p-btn">Prediksi Durasi</button>
+        </form>
+        <div id="p-hasil" class="hasil"></div>
+      </div>
+      <div class="panel">
+        <h3>Evaluasi Model — Prediksi Durasi Pompa</h3>
+        <label>Pompa
+          <select id="e-jenis"><option value="nutrisi">Nutrisi</option><option value="asam">Asam</option></select>
+        </label>
+        <table id="e-table"></table>
+        <canvas id="e-chart"></canvas>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="panel"><h3>Fitur yang Paling Berpengaruh</h3><canvas id="e-imp"></canvas></div>
+      <div class="panel"><h3>Evaluasi Model — Deteksi Anomali</h3><table id="e-anom"></table><p class="note" id="e-note"></p></div>
+    </div>
+  </div>
+</main>
+<footer>Prototipe skripsi — data yang tampil adalah <b>data simulasi</b>; ganti dengan data asli dari ESP32 melalui <code>POST /api/ingest</code>.</footer>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
